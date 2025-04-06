@@ -36,7 +36,7 @@ function extractDeviceContent(str: string) {
     try {
       let json = JSON.parse(match[1]) as B0Command;
       // validate the values
-      if (!json.power) {
+      if (json.power === undefined) {
         continue;
       }
       if (!Array.isArray(json.freq) || json.freq.length !== 4) {
