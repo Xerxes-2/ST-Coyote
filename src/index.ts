@@ -154,7 +154,7 @@ async function onButtonClick() {
     // Update status to connecting
     if (statusElement) {
       statusElement.textContent = "Connecting...";
-      statusElement.className = "connection-status disconnected";
+      statusElement.className = "connection-status connecting";
     }
 
     const device = await navigator.bluetooth.requestDevice({
@@ -221,10 +221,10 @@ jQuery(async () => {
   const settingsHtml = await $.get(`${extensionFolderPath}/src/index.html`);
 
   $("#extensions_settings").append(settingsHtml);
-  $("#my_button").on("click", onButtonClick);
+  $("#coyote_connect_button").on("click", onButtonClick);
 
   // Add event listener for power scale changes
-  $("#power_scale_input").on("change", updatePowerScale);
+  $("#coyote_power_scale").on("change", updatePowerScale);
 
   // Load saved settings
   loadSettings();
