@@ -1,3 +1,58 @@
-.hello-world-message {
-    color: blue;
+/* ST Coyote Extension Styles */
+.coyote-control-block {
+    margin-bottom: 10px;
+}
+
+.coyote-button {
+    transition: all 0.2s ease-in-out;
+}
+
+.coyote-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.coyote-status-container {
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+.coyote-control-row {
+    margin-bottom: 8px;
+    align-items: center;
+}
+
+.coyote-input {
+    width: 60px;
+    padding: 3px 5px;
+    border-radius: 4px;
+    text-align: center;
+    margin: 0 8px;
+}
+
+.coyote-note {
+    font-style: italic;
+    opacity: 0.8;
+}
+
+.connection-status {
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.connection-status.connected {
+    background-color: #4caf50;
+    color: white;
+}
+
+.connection-status.disconnected {
+    background-color: #f44336;
+    color: white;
+}
+
+.connection-status.connecting {
+    background-color: #ff9800;
+    color: white;
 }
