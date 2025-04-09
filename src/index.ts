@@ -6,7 +6,7 @@ import "./style.css";
 const { Popup } = (globalThis as any).SillyTavern.getContext();
 const { getContext } = (globalThis as any).SillyTavern;
 // Popup.show.text(message);
-const SCALE = 10;
+let SCALE = 10;
 const MAX_POWER = 200;
 const extensionName = "ST-Coyote";
 const extensionFolderPath = `scripts/extensions/third-party/${extensionName}`;
@@ -20,6 +20,51 @@ interface B0Command {
   power: number;
   freq: [number, number, number, number];
   level: [number, number, number, number];
+}
+
+// Save and load functions for user settings
+function saveSettings() {
+  const settings = {
+    powerScale: SCALE,
+  };
+  localStorage.setItem(`${extensionName}_settings`, JSON.stringify(settings));
+}
+
+function loadSettings() {
+  const settingsJson = localStorage.getItem(`${extensionName}_settings`);
+  if (settingsJson) {
+    try {
+      const settings = JSON.parse(settingsJson);
+      if (settings.powerScale !== undefined) {
+        SCALE = Number(settings.powerScale);
+        // Update the input field
+        const scaleInput = document.getElementById(
+          "power_scale_input"
+        ) as HTMLInputElement;
+        if (scaleInput) {
+          scaleInput.value = SCALE.toString();
+        }
+      }
+    } catch (error) {
+      console.error("Failed to load settings:", error);
+    }
+  }
+}
+
+// Update the power scale when input changes
+function updatePowerScale() {
+  const scaleInput = document.getElementById(
+    "power_scale_input"
+  ) as HTMLInputElement;
+  if (scaleInput) {
+    const newValue = Number(scaleInput.value);
+    if (!isNaN(newValue) && newValue > 0) {
+      SCALE = newValue;
+      saveSettings();
+      console.log(`Power scale updated to: ${SCALE}`);
+      Popup.show.text(`Power scale updated to: ${SCALE}`);
+    }
+  }
 }
 
 function extractDeviceContent(str: string) {
@@ -177,4 +222,10 @@ jQuery(async () => {
 
   $("#extensions_settings").append(settingsHtml);
   $("#my_button").on("click", onButtonClick);
+
+  // Add event listener for power scale changes
+  $("#power_scale_input").on("change", updatePowerScale);
+
+  // Load saved settings
+  loadSettings();
 });
