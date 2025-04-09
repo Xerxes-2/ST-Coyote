@@ -1,3 +1,5 @@
+<!-- You might want to add additional HTML elements to ST. 
+    It's good practice to separate it out from your code -->
 <div class="example-extension-settings">
   <div class="inline-drawer">
     <div class="inline-drawer-toggle inline-drawer-header">
@@ -15,18 +17,16 @@
           value="Connect"
         />
       </div>
-      <div class="flex-container status-container">
-        <span class="connection-indicator">Status:</span>
+      <div class="flex-container">
+        <span class="connection-indicator">Status: </span>
         <span
           id="coyote_connection_status"
           class="connection-status disconnected"
           >Disconnected</span
         >
       </div>
-      <div class="flex-container power-scale-container">
-        <label for="power_scale_input" class="power-scale-label"
-          >Power Scale:</label
-        >
+      <div class="flex-container">
+        <label for="power_scale_input">Power Scale:</label>
         <input
           id="power_scale_input"
           type="number"
@@ -34,60 +34,27 @@
           max="50"
           value="10"
           class="text_pole"
+          style="width: 60px"
         />
         <span class="notes">Lower value = stronger intensity</span>
       </div>
       <style>
-        .flex-container {
-          display: flex;
-          align-items: center;
-          margin-bottom: 10px;
-        }
-
-        .status-container {
-          gap: 10px;
-        }
-
-        .power-scale-container {
-          gap: 10px;
-        }
-
-        .power-scale-label {
-          min-width: 100px;
-        }
-
         .connection-status {
-          padding: 2px 8px;
+          padding: 2px 5px;
           border-radius: 3px;
           font-weight: bold;
-          text-align: center;
         }
-
         .connection-status.connected {
           background-color: #4caf50;
           color: white;
         }
-
         .connection-status.disconnected {
           background-color: #f44336;
           color: white;
         }
-
         .connection-status.connecting {
           background-color: #ff9800;
           color: white;
-        }
-
-        .text_pole {
-          width: 60px;
-          padding: 5px;
-          border: 1px solid #ccc;
-          border-radius: 3px;
-        }
-
-        .notes {
-          font-size: 0.9em;
-          color: #666;
         }
       </style>
     </div>
