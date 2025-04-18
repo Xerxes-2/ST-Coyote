@@ -11,12 +11,12 @@ const MAX_POWER = 200;
 const extensionName = "ST-Coyote";
 const extensionFolderPath = `scripts/extensions/third-party/${extensionName}`;
 
-const B0_CMD_EXAMPLE = [
+const V3_B0_CMD_EXAMPLE = [
   0xb0, 0b00001111, 10, 10, 10, 10, 20, 30, 0, 5, 10, 50, 10, 10, 20, 30, 0, 5,
   10, 50,
 ];
 
-interface B0Command {
+interface LlmCommand {
   power: number;
   freq: [number, number, number, number];
   level: [number, number, number, number];
@@ -79,7 +79,7 @@ function extractDeviceContent(str: string) {
 
   while ((match = regex.exec(str)) !== null) {
     try {
-      let json = JSON.parse(match[1]) as B0Command;
+      let json = JSON.parse(match[1]) as LlmCommand;
       // validate the values
       if (json.power === undefined) {
         continue;
@@ -117,7 +117,7 @@ async function send_while(characteristic: BluetoothRemoteGATTCharacteristic) {
 
     let power = b0.power > MAX_POWER ? MAX_POWER : b0.power;
     let powerScale = Math.floor(power / SCALE);
-    let numbers = B0_CMD_EXAMPLE;
+    let numbers = V3_B0_CMD_EXAMPLE;
     numbers[2] = powerScale;
     // 4 - 7 is freq
     numbers[4] = b0.freq[0];
