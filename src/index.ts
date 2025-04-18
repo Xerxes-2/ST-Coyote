@@ -125,10 +125,10 @@ async function send_while(characteristic: BluetoothRemoteGATTCharacteristic) {
     numbers[6] = b0.freq[2];
     numbers[7] = b0.freq[3];
     // 8 - 11 is level
-    numbers[8] = b0.level[0];
-    numbers[9] = b0.level[1];
-    numbers[10] = b0.level[2];
-    numbers[11] = b0.level[3];
+    numbers[8] = b0.level[0] % 100;
+    numbers[9] = b0.level[1] % 100;
+    numbers[10] = b0.level[2] % 100;
+    numbers[11] = b0.level[3] % 100;
 
     await send_value(characteristic, numbers);
     return 0;
