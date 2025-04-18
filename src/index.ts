@@ -19,7 +19,7 @@ const V3_B0_CMD_EXAMPLE = [
 interface LlmCommand {
   power: number;
   freq: [number, number, number, number];
-  level: [number, number, number, number];
+  percentage: [number, number, number, number];
 }
 
 // Save and load functions for user settings
@@ -87,7 +87,7 @@ function extractDeviceContent(str: string) {
       if (!Array.isArray(json.freq) || json.freq.length !== 4) {
         continue;
       }
-      if (!Array.isArray(json.level) || json.level.length !== 4) {
+      if (!Array.isArray(json.percentage) || json.percentage.length !== 4) {
         continue;
       }
       contents.push(json);
@@ -113,7 +113,7 @@ async function send_while(characteristic: BluetoothRemoteGATTCharacteristic) {
     let b0 = result[result.length - 1];
     console.log(`Coyote: ${b0.power}`);
     console.log(`Coyote: ${b0.freq}`);
-    console.log(`Coyote: ${b0.level}`);
+    console.log(`Coyote: ${b0.percentage}`);
 
     let power = b0.power > MAX_POWER ? MAX_POWER : b0.power;
     let powerScale = Math.floor(power / SCALE);
@@ -126,10 +126,10 @@ async function send_while(characteristic: BluetoothRemoteGATTCharacteristic) {
     numbers[7] = b0.freq[3];
     // 8 - 11 is level in percentage
     // 0 - 100
-    numbers[8] = Math.min(100, b0.level[0]);
-    numbers[9] = Math.min(100, b0.level[1]);
-    numbers[10] = Math.min(100, b0.level[2]);
-    numbers[11] = Math.min(100, b0.level[3]);
+    numbers[8] = Math.min(100, b0.percentage[0]);
+    numbers[9] = Math.min(100, b0.percentage[1]);
+    numbers[10] = Math.min(100, b0.percentage[2]);
+    numbers[11] = Math.min(100, b0.percentage[3]);
 
     await send_value(characteristic, numbers);
     return 0;
